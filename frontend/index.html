@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="SnapMart home">
+        <span class="brand-mark">S</span>
+        <span>SnapMart</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+        Menu
+      </button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#shops">Local Shops</a>
+        <a href="#vendors">Vendors</a>
+        <a href="#admin">Admin</a>
+        <a href="./pages/login.html">Login</a>
+      </nav>
+      <a class="header-action" href="./pages/register.html">Join SnapMart</a>
+    </header>
     <main id="app">
       <section class="hero-section">
         <div class="hero-copy">
@@ -47,7 +63,7 @@
           <h2>Vendors</h2>
           <p>Manage products, stock, orders, and daily shop activity.</p>
         </article>
-        <article>
+        <article id="admin">
           <span class="feature-number">03</span>
           <h2>Admins</h2>
           <p>Control users, vendors, payments, orders, and platform health.</p>
