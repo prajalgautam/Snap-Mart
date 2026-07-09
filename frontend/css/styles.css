@@ -290,6 +290,35 @@ p {
   margin-bottom: 24px;
 }
 
+.catalog-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 16px;
+  margin-bottom: 24px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 18px;
+}
+
+.catalog-toolbar label {
+  display: grid;
+  gap: 8px;
+  color: var(--dark);
+  font-weight: 800;
+}
+
+.catalog-toolbar input,
+.catalog-toolbar select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--dark);
+  padding: 13px 14px;
+  font: inherit;
+}
+
 .product-grid {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -357,6 +386,14 @@ p {
   background: transparent;
   cursor: pointer;
   font: inherit;
+}
+
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 24px;
+  text-align: center;
 }
 
 .auth-page {
@@ -457,7 +494,8 @@ p {
   }
 
   .features-section,
-  .product-grid {
+  .product-grid,
+  .catalog-toolbar {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -486,7 +524,8 @@ p {
   }
 
   .features-section,
-  .product-grid {
+  .product-grid,
+  .catalog-toolbar {
     grid-template-columns: 1fr;
   }
 }
