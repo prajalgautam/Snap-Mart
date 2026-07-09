@@ -94,7 +94,8 @@ a {
 
 .hero-section,
 .features-section,
-.section-block {
+.section-block,
+.page-hero {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
 }
@@ -271,6 +272,20 @@ p {
   padding: 56px 0;
 }
 
+.page-hero {
+  padding: 64px 0 24px;
+}
+
+.page-hero h1 {
+  max-width: 860px;
+  margin-bottom: 18px;
+}
+
+.page-hero p {
+  max-width: 720px;
+  font-size: 18px;
+}
+
 .section-heading {
   margin-bottom: 24px;
 }
@@ -297,6 +312,18 @@ p {
   background: linear-gradient(135deg, #e0e7ff, #fef3c7);
 }
 
+.produce {
+  background: linear-gradient(135deg, #bbf7d0, #fed7aa);
+}
+
+.bakery {
+  background: linear-gradient(135deg, #fde68a, #fecdd3);
+}
+
+.cleaning {
+  background: linear-gradient(135deg, #cffafe, #d9f99d);
+}
+
 .product-card span {
   color: var(--primary);
   font-size: 13px;
@@ -307,6 +334,29 @@ p {
   display: block;
   color: var(--primary);
   font-size: 24px;
+}
+
+.product-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.product-meta small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.product-action {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+  border: 1px solid var(--primary);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
 }
 
 .auth-page {

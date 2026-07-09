@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products | SnapMart</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="SnapMart home">
+        <span class="brand-mark">S</span>
+        <span>SnapMart</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+        Menu
+      </button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="./products.html">Products</a>
+        <a href="../index.html#shops">Local Shops</a>
+        <a href="../index.html#vendors">Vendors</a>
+        <a href="./login.html">Login</a>
+      </nav>
+      <a class="header-action" href="./register.html">Join SnapMart</a>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <span class="eyebrow">Product listing</span>
+        <h1>Shop everyday products from nearby vendors.</h1>
+        <p>
+          Browse grocery bundles, pharmacy essentials, electronics accessories,
+          bakery items, and home supplies available through SnapMart.
+        </p>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <span class="eyebrow">Nearby inventory</span>
+          <h2>Available products</h2>
+        </div>
+        <div class="product-grid catalog-grid" data-product-grid></div>
+      </section>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/catalog-data.js"></script>
+    <script src="../js/products.js"></script>
+  </body>
+</html>
