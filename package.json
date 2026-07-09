@@ -1,0 +1,17 @@
+{
+  "name": "snap-mart",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SnapMart full-stack project with a Next.js frontend and Express API.",
+  "scripts": {
+    "setup": "npm install --prefix app && npm install --prefix api",
+    "dev": "npm run dev:api & npm run dev:app",
+    "dev:app": "npm run dev --prefix app",
+    "dev:api": "npm run dev --prefix api",
+    "build": "npm run build --prefix app",
+    "start": "npm run start:api & npm run start:app",
+    "start:app": "npm run start --prefix app",
+    "start:api": "npm run start --prefix api",
+    "lint": "npm run lint --prefix app"
+  }
+}
