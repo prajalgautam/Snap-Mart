@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment | SnapMart</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="SnapMart home">
+        <span class="brand-mark">S</span>
+        <span>SnapMart</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+        Menu
+      </button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="./products.html">Products</a>
+        <a href="./cart.html">Cart</a>
+        <a href="../index.html#vendors">Vendors</a>
+        <a href="./login.html">Login</a>
+      </nav>
+      <a class="header-action" href="./register.html">Join SnapMart</a>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <span class="eyebrow">Payment gateway</span>
+        <h1>Complete payment for your SnapMart order.</h1>
+        <p>
+          Choose a digital payment method and confirm the mock transaction for
+          this development version.
+        </p>
+      </section>
+
+      <section class="section-block payment-layout">
+        <aside class="summary-card" data-payment-details></aside>
+        <form class="checkout-form" data-payment-form>
+          <label>
+            Payment method
+            <select name="paymentMethod" required>
+              <option value="Digital Wallet">Digital Wallet</option>
+              <option value="Card">Card</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Cash on Delivery">Cash on Delivery</option>
+            </select>
+          </label>
+          <label>
+            Payment number
+            <input type="text" placeholder="Wallet, card, or transaction ID" required />
+          </label>
+          <p class="form-message" data-payment-message></p>
+          <button class="primary-btn" type="submit">Pay Now</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/catalog-data.js"></script>
+    <script src="../js/cart-store.js"></script>
+    <script src="../js/payment.js"></script>
+  </body>
+</html>

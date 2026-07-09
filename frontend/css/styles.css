@@ -551,6 +551,23 @@ p {
   font-weight: 800;
 }
 
+.payment-layout {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.checkout-form select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--dark);
+  padding: 13px 14px;
+  font: inherit;
+}
+
 .auth-page {
   display: grid;
   min-height: 100vh;
@@ -652,12 +669,14 @@ p {
   .product-grid,
   .catalog-toolbar,
   .cart-layout,
-  .checkout-layout {
+  .checkout-layout,
+  .payment-layout {
     grid-template-columns: 1fr 1fr;
   }
 
   .cart-layout,
-  .checkout-layout {
+  .checkout-layout,
+  .payment-layout {
     grid-template-columns: 1fr;
   }
 }
@@ -690,6 +709,7 @@ p {
   .catalog-toolbar,
   .cart-layout,
   .checkout-layout,
+  .payment-layout,
   .cart-item {
     grid-template-columns: 1fr;
   }
