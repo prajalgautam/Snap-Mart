@@ -1,0 +1,88 @@
+"use client";
+
+import Link from "next/link";
+import useAuthStore from "@/stores/authStore";
+import {
+  CART_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  navMenu,
+} from "@/constants/routes";
+import { usePathname, useRouter } from "next/navigation";
+import usePreferenceStore from "@/stores/preferenceStore";
+import { FaMoon, FaSun } from "react-icons/fa6";
+import useCartStore from "@/stores/cartStore";
+import Logo from "./Logo";
+import Account from "./Account";
+import { FaCartShopping } from "react-icons/fa6";
+
+const Header = () => {
+  const { isAuthenticated } = useAuthStore.getState();
+  const { toggleTheme } = usePreferenceStore.getState();
+
+  const theme = usePreferenceStore((state) => state.theme);
+  const products = useCartStore((state) => state.products);
+
+  const router = useRouter();
+  const pathName = usePathname();
+
+  if (pathName.startsWith("/admin")) return;
+
+  return (
+    <header className="py-4 shadow-md bg-white/95 dark:bg-gray-950/95 backdrop-blur sticky top-0 z-10">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between gap-4">
+          <Logo />
+          <nav className="items-center gap-3 hidden md:flex">
+            {navMenu.map((menu) => {
+              const isActive =
+                pathName == menu.route ||
+                (menu.route !== HOME_ROUTE && pathName.startsWith(menu.route));
+
+              return (
+                <Link
+                  key={menu.route}
+                  className={`text-dark dark:text-gray-200 px-2 py-1 hover:text-primary ${isActive ? "text-primary" : ""}`}
+                  href={menu.route}
+                >
+                  {menu.label}
+                </Link>
+              );
+            })}
+          </nav>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white h-10 w-10"
+            >
+              {theme == "light" ? <FaMoon /> : <FaSun />}
+            </button>
+
+            <Link
+              href={CART_ROUTE}
+              className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10 flex items-center"
+            >
+              <FaCartShopping className="text-primary" />
+              <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+                {products.length}
+              </span>
+            </Link>
+
+            {isAuthenticated ? (
+              <Account />
+            ) : (
+              <Link
+                className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"
+                href={LOGIN_ROUTE}
+              >
+                Login
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Header;
