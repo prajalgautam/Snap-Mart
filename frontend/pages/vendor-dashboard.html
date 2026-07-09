@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Orders | SnapMart</title>
+    <title>Vendor Dashboard | SnapMart</title>
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
   <body>
@@ -17,9 +17,8 @@
       </button>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="./products.html">Products</a>
-        <a href="./cart.html">Cart</a>
         <a href="./orders.html">Orders</a>
-        <a href="./vendor-dashboard.html">Vendors</a>
+        <a href="./vendor-dashboard.html">Vendor</a>
         <a href="./login.html">Login</a>
       </nav>
       <a class="header-action" href="./register.html">Join SnapMart</a>
@@ -27,24 +26,36 @@
 
     <main>
       <section class="page-hero">
-        <span class="eyebrow">Order management</span>
-        <h1>Track and manage SnapMart orders.</h1>
+        <span class="eyebrow">Vendor dashboard</span>
+        <h1>Manage inventory, orders, and daily shop activity.</h1>
         <p>
-          Review paid orders, customer delivery details, payment method, and
-          update fulfillment status.
+          Track storefront performance, review recent customer orders, and keep
+          product inventory visible for local shoppers.
         </p>
       </section>
 
-      <section class="section-block">
-        <div class="orders-list" data-orders-list></div>
-        <p class="empty-state" data-orders-empty>
-          No orders yet. Complete checkout and payment to create one.
-        </p>
+      <section class="features-section dashboard-metrics" data-vendor-metrics></section>
+
+      <section class="section-block dashboard-layout">
+        <div>
+          <div class="section-heading">
+            <span class="eyebrow">Inventory</span>
+            <h2>Product stock</h2>
+          </div>
+          <div class="vendor-products" data-vendor-products></div>
+        </div>
+        <aside>
+          <div class="section-heading">
+            <span class="eyebrow">Fulfillment</span>
+            <h2>Recent orders</h2>
+          </div>
+          <div class="vendor-orders" data-vendor-orders></div>
+        </aside>
       </section>
     </main>
 
     <script src="../js/main.js"></script>
     <script src="../js/catalog-data.js"></script>
-    <script src="../js/orders.js"></script>
+    <script src="../js/vendor-dashboard.js"></script>
   </body>
 </html>
