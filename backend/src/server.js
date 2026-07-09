@@ -80,14 +80,19 @@ app.post("/api/auth/register", async (req, res) => {
       });
     }
 
-    if (password.length < 6) {
-      return res.status(400).json({
-        message: "Password must be at least 6 characters long.",
-      });
-    }
+   const MIN_PASSWORD_LENGTH = 6;
 
-    const users = await readUsers();
-    const existingUser = users.find((user) => user.email === email);
+if (password.length < MIN_PASSWORD_LENGTH) {
+  return res.status(400).json({
+    message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`,
+  });
+}
+
+const users = await readUsers();
+
+const existingUser = users.find(({ email: userEmail }) => {
+  return userEmail === email;
+});
 
     if (existingUser) {
       return res.status(409).json({
