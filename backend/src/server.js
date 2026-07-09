@@ -156,6 +156,7 @@ if (isPasswordValid === false) {
   });
 }
 
+
     const token = jwt.sign(
       { sub: user.id, email: user.email, role: user.role },
       jwtSecret,
