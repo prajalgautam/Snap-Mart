@@ -118,10 +118,12 @@ app.post("/api/auth/register", async (req, res) => {
   } catch (error) {
     console.error("Register error:", error);
     return res.status(500).json({
+
       message: "Unable to register user.",
     });
   }
 });
+
 
 app.post("/api/auth/login", async (req, res) => {
   try {
@@ -130,7 +132,7 @@ app.post("/api/auth/login", async (req, res) => {
 
     if (!email || !password) {
       return res.status(400).json({
-        message: "Email and password are required.",
+        message: "Email and password are needed.",
       });
     }
 
