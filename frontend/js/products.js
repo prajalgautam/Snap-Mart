@@ -14,7 +14,9 @@ function createProductCard(product) {
       <strong>${formatCurrency(product.price)}</strong>
       <small>${product.inventory} in stock</small>
     </div>
-    <button class="secondary-btn product-action" type="button">View Details</button>
+    <button class="secondary-btn product-action" type="button" data-add-to-cart="${product.id}">
+      Add to Cart
+    </button>
   `;
 
   return article;
@@ -68,5 +70,19 @@ if (productSearch) {
   productSearch.addEventListener("submit", (event) => {
     event.preventDefault();
     updateProductResults();
+  });
+}
+
+if (productGrid) {
+  productGrid.addEventListener("click", (event) => {
+    const productId = event.target.dataset.addToCart;
+
+    if (!productId) return;
+
+    addToCart(productId);
+    event.target.textContent = "Added";
+    setTimeout(() => {
+      event.target.textContent = "Add to Cart";
+    }, 900);
   });
 }

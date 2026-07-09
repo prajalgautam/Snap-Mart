@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart | SnapMart</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="../index.html" aria-label="SnapMart home">
+        <span class="brand-mark">S</span>
+        <span>SnapMart</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation">
+        Menu
+      </button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="./products.html">Products</a>
+        <a href="./cart.html">Cart</a>
+        <a href="../index.html#vendors">Vendors</a>
+        <a href="./login.html">Login</a>
+      </nav>
+      <a class="header-action" href="./register.html">Join SnapMart</a>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <span class="eyebrow">Shopping cart</span>
+        <h1>Review your local order before checkout.</h1>
+        <p>
+          Adjust quantities, remove products, and confirm the delivery total for
+          nearby vendor items.
+        </p>
+      </section>
+
+      <section class="section-block cart-layout">
+        <div>
+          <div class="cart-items" data-cart-items></div>
+          <p class="empty-state" data-cart-empty>
+            Your cart is empty. Add products from the catalog to get started.
+          </p>
+        </div>
+        <aside class="summary-card">
+          <h2>Order summary</h2>
+          <dl>
+            <div>
+              <dt>Subtotal</dt>
+              <dd data-cart-subtotal>Rs. 0</dd>
+            </div>
+            <div>
+              <dt>Delivery</dt>
+              <dd data-cart-delivery>Rs. 0</dd>
+            </div>
+            <div>
+              <dt>Service fee</dt>
+              <dd data-cart-service>Rs. 0</dd>
+            </div>
+            <div class="summary-total">
+              <dt>Total</dt>
+              <dd data-cart-total>Rs. 0</dd>
+            </div>
+          </dl>
+          <a class="primary-btn summary-action" href="./checkout.html">Checkout</a>
+        </aside>
+      </section>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/catalog-data.js"></script>
+    <script src="../js/cart-store.js"></script>
+    <script src="../js/cart.js"></script>
+  </body>
+</html>

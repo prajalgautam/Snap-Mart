@@ -396,6 +396,103 @@ p {
   text-align: center;
 }
 
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.cart-items {
+  display: grid;
+  gap: 16px;
+}
+
+.cart-item,
+.summary-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: 22px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+}
+
+.cart-item span {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.cart-item h3,
+.summary-card h2 {
+  margin-bottom: 8px;
+}
+
+.cart-controls {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+}
+
+.cart-controls label {
+  display: grid;
+  gap: 6px;
+  color: var(--dark);
+  font-weight: 800;
+}
+
+.cart-controls input {
+  width: 84px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+.summary-card {
+  position: sticky;
+  top: 96px;
+}
+
+.summary-card dl {
+  display: grid;
+  gap: 14px;
+  margin: 20px 0;
+}
+
+.summary-card dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.summary-card dt {
+  color: var(--muted);
+}
+
+.summary-card dd {
+  margin: 0;
+  font-weight: 800;
+}
+
+.summary-total {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  font-size: 20px;
+}
+
+.summary-action {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .auth-page {
   display: grid;
   min-height: 100vh;
@@ -495,8 +592,13 @@ p {
 
   .features-section,
   .product-grid,
-  .catalog-toolbar {
+  .catalog-toolbar,
+  .cart-layout {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -525,7 +627,18 @@ p {
 
   .features-section,
   .product-grid,
-  .catalog-toolbar {
+  .catalog-toolbar,
+  .cart-layout,
+  .cart-item {
     grid-template-columns: 1fr;
+  }
+
+  .cart-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cart-controls input {
+    width: 100%;
   }
 }
