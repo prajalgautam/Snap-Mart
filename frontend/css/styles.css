@@ -568,6 +568,62 @@ p {
   font: inherit;
 }
 
+.orders-list {
+  display: grid;
+  gap: 18px;
+}
+
+.order-card {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  padding: 24px;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 18px;
+}
+
+.order-card-header h2 {
+  margin: 10px 0 6px;
+}
+
+.order-card-header strong {
+  color: var(--primary);
+  font-size: 24px;
+}
+
+.order-details {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.order-details p {
+  margin: 0;
+}
+
+.status-control {
+  display: grid;
+  gap: 8px;
+  max-width: 280px;
+  color: var(--dark);
+  font-weight: 800;
+}
+
+.status-control select {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--dark);
+  padding: 12px 14px;
+  font: inherit;
+}
+
 .auth-page {
   display: grid;
   min-height: 100vh;
@@ -721,5 +777,9 @@ p {
 
   .cart-controls input {
     width: 100%;
+  }
+
+  .order-card-header {
+    flex-direction: column;
   }
 }
