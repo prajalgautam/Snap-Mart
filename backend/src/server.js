@@ -145,13 +145,16 @@ app.post("/api/auth/login", async (req, res) => {
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+   const isPasswordValid = await bcrypt.compare(
+  password,
+  user.passwordHash
+);
 
-    if (!isPasswordValid) {
-      return res.status(401).json({
-        message: "Invalid email or password.",
-      });
-    }
+if (isPasswordValid === false) {
+  return res.status(401).json({
+    message: "Invalid email or password.",
+  });
+}
 
     const token = jwt.sign(
       { sub: user.id, email: user.email, role: user.role },
