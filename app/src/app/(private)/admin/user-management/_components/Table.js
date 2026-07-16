@@ -25,7 +25,25 @@ const UsersTable = () => {
   }
 
   useEffect(() => {
-    fetchUsers();
+    let cancelled = false;
+
+    async function loadUsers() {
+      try {
+        const response = await getAllUsers();
+
+        if (!cancelled) setUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadUsers();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (loading)

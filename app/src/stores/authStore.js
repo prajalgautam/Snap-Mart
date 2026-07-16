@@ -35,7 +35,9 @@ const useAuthStore = create(
           isAuthenticated: false,
         }),
     }),
-    { name: "zustand:auth-storage" },
+    // Rehydrate after the first client render so persisted authentication
+    // cannot differ from the HTML generated on the server.
+    { name: "zustand:auth-storage", skipHydration: true },
   ),
 );
 

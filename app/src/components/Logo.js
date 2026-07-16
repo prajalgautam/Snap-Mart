@@ -11,7 +11,7 @@ const Logo = () => {
         alt="SnapMart"
         height={32}
         width={32}
-        className="h-9"
+        className="h-9 w-auto"
       />
       <h1 className="text-lg md:text-2xl font-bold mt-1 text-transparent bg-linear-to-r from-primary to-secondary bg-clip-text">
         SnapMart

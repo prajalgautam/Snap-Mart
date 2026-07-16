@@ -98,7 +98,7 @@ const useCartStore = create(
         });
       },
     }),
-    { name: "zustand:cart-storage" },
+    { name: "zustand:cart-storage", skipHydration: true },
   ),
 );
 

@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000",
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || "",
   stripeKey: process.env.NEXT_PUBLIC_STRIPE_KEY || "",
   bestSellerId: process.env.NEXT_PUBLIC_BEST_SELLER_ID || "",
 };

@@ -71,8 +71,8 @@ const Account = () => {
           >
             Orders
           </Link>
-          {(user.roles.includes(ROLE_ADMIN) ||
-            user.roles.includes(ROLE_MERCHANT)) && (
+          {(user?.roles?.includes(ROLE_ADMIN) ||
+            user?.roles?.includes(ROLE_MERCHANT)) && (
             <Link
               href={DASHBOARD_ROUTE}
               className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"

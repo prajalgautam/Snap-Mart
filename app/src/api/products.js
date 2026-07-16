@@ -9,23 +9,15 @@ export const getProducts = async (searchParams) => {
     limit: searchParams?.limit || 100,
   });
 
-  try {
-    const response = await axios.get(`${config.apiUrl}/api/products?${query}`);
+  const response = await axios.get(`${config.apiUrl}/api/products?${query}`);
 
-    return response.data;
-  } catch {
-    return [];
-  }
+  return response.data;
 };
 
 export const getProductById = async (id) => {
-  try {
-    const response = await axios.get(`${config.apiUrl}/api/products/${id}`);
+  const response = await axios.get(`${config.apiUrl}/api/products/${id}`);
 
-    return response.data;
-  } catch {
-    return null;
-  }
+  return response.data;
 };
 
 export const addProduct = async (data) => {
@@ -41,21 +33,13 @@ export const deleteProduct = async (id) => {
 };
 
 export const getCategories = async () => {
-  try {
-    const response = await axios.get(`${config.apiUrl}/api/products/categories`);
+  const response = await axios.get(`${config.apiUrl}/api/products/categories`);
 
-    return response.data;
-  } catch {
-    return [];
-  }
+  return response.data;
 };
 
 export const getBrands = async () => {
-  try {
-    const response = await axios.get(`${config.apiUrl}/api/products/brands`);
+  const response = await axios.get(`${config.apiUrl}/api/products/brands`);
 
-    return response.data;
-  } catch {
-    return [];
-  }
+  return response.data;
 };

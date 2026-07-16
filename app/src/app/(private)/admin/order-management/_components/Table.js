@@ -36,7 +36,27 @@ const OrdersTable = () => {
   }
 
   useEffect(() => {
-    fetchOrders();
+    let cancelled = false;
+
+    async function loadOrders() {
+      try {
+        const response = user.roles.includes(ROLE_ADMIN)
+          ? await getAllOrders()
+          : await getOrdersByMerchant();
+
+        if (!cancelled) setOrders(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadOrders();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (loading)

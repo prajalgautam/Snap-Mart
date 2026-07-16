@@ -8,7 +8,8 @@ import {
   LOGIN_ROUTE,
   navMenu,
 } from "@/constants/routes";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import usePreferenceStore from "@/stores/preferenceStore";
 import { FaMoon, FaSun } from "react-icons/fa6";
 import useCartStore from "@/stores/cartStore";
@@ -17,14 +18,18 @@ import Account from "./Account";
 import { FaCartShopping } from "react-icons/fa6";
 
 const Header = () => {
-  const { isAuthenticated } = useAuthStore.getState();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { toggleTheme } = usePreferenceStore.getState();
 
   const theme = usePreferenceStore((state) => state.theme);
   const products = useCartStore((state) => state.products);
 
-  const router = useRouter();
   const pathName = usePathname();
+
+  useEffect(() => {
+    useAuthStore.persist.rehydrate();
+    useCartStore.persist.rehydrate();
+  }, []);
 
   if (pathName.startsWith("/admin")) return;
 

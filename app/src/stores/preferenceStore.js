@@ -12,7 +12,7 @@ const usePreferenceStore = create(
         }));
       },
     }),
-    { name: "zustand:preference-storage" },
+    { name: "zustand:preference-storage", skipHydration: true },
   ),
 );
 
