@@ -59,6 +59,8 @@ const Header = () => {
             <button
               onClick={toggleTheme}
               className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white h-10 w-10"
+              type="button"
+              aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
             >
               {theme == "light" ? <FaMoon /> : <FaSun />}
             </button>
@@ -66,6 +68,7 @@ const Header = () => {
             <Link
               href={CART_ROUTE}
               className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10 flex items-center"
+              aria-label={`Shopping cart with ${products.length} items`}
             >
               <FaCartShopping className="text-primary" />
               <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">

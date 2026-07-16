@@ -47,10 +47,15 @@ const Account = () => {
       ref={popoverRef}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <button type="button">
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-haspopup="menu"
+        aria-label="Open account menu"
+      >
         <Image
           src={user?.profileImageUrl ?? placeholder}
-          alt=""
+          alt="Your profile"
           width={100}
           height={100}
           className="h-10 w-10 rounded-full border-2 border-primary object-cover p-0.5"
@@ -58,24 +63,30 @@ const Account = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-12 right-0 bg-white dark:bg-gray-900 rounded-xl p-2 min-w-32 flex flex-col gap-1 shadow-md">
+        <div
+          className="absolute top-12 right-0 bg-white dark:bg-gray-900 rounded-xl p-2 min-w-32 flex flex-col gap-1 shadow-md"
+          role="menu"
+        >
           <Link
             href={PROFILE_ROUTE}
             className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+            role="menuitem"
           >
             Account
           </Link>
           <Link
             href={ORDERS_ROUTE}
             className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+            role="menuitem"
           >
             Orders
           </Link>
           {(user?.roles?.includes(ROLE_ADMIN) ||
             user?.roles?.includes(ROLE_MERCHANT)) && (
             <Link
-              href={DASHBOARD_ROUTE}
-              className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+                href={DASHBOARD_ROUTE}
+                className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+                role="menuitem"
             >
               Dashboard
             </Link>
@@ -84,6 +95,7 @@ const Account = () => {
           <button
             className="bg-red-500 text-white px-4 py-1 rounded-md cursor-pointer"
             onClick={handleLogout}
+            role="menuitem"
           >
             Logout
           </button>
