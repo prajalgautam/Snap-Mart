@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const config = {
-  appUrl: process.env.APP_URL || "",
+  appUrl: process.env.APP_URL || "http://localhost:3000",
   jwtSecret: process.env.JWT_SECRET || "",
   mongodbUrl: process.env.MONGODB_URL || "",
-  port: process.env.PORT || "",
+  port: Number(process.env.PORT) || 8000,
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
     apiKey: process.env.CLOUDINARY_API_KEY || "",
