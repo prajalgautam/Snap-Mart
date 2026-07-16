@@ -13,6 +13,7 @@ import bodyParser from "body-parser";
 import logger from "./middlewares/logger.js";
 import auth from "./middlewares/auth.js";
 import connectCloudinary from "./config/cloudinary.js";
+import { errorHandler, notFound } from "./middlewares/errorHandler.js";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -48,6 +49,9 @@ app.use("/api/users", auth, upload.single("image"), userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/orders", auth, orderRoute);
 app.use("/pages", pageRoute);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(config.port, () => {
   console.log(`Server running at port ${config.port}...`);
