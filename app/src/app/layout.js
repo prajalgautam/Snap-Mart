@@ -1,4 +1,5 @@
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "@/components/Header";
 import MainLayout from "@/layouts/MainLayout";
 import { ToastContainer } from "react-toastify";
