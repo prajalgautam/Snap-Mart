@@ -36,6 +36,13 @@ app.get("/", (request, response) => {
   });
 });
 
+app.get("/health", (request, response) => {
+  response.status(200).json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.use("/api/products", upload.array("images", 5), productRoute);
 app.use("/api/users", auth, upload.single("image"), userRoute);
 app.use("/api/auth", authRoute);
