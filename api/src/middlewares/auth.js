@@ -1,21 +1,24 @@
 import jwt from "../utils/jwt.js";
 
+const getCookieToken = (cookieHeader = "") => {
+  const authCookie = cookieHeader
+    .split(";")
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith("authToken="));
+
+  return authCookie?.slice("authToken=".length);
+};
+
 const auth = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  let token;
+  const token = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length)
+    : getCookieToken(req.headers.cookie);
 
-  if (authHeader && authHeader.startsWith("Bearer ")) {
-    token = authHeader.split(" ")[1];
-  } else {
-    const cookie = req.headers.cookie;
-
-    if (!cookie) return res.status(401).send("User not authenticated.");
-
-    token = cookie.split("=")[1];
+  if (!token) {
+    return res.status(401).json({ message: "User not authenticated." });
   }
-
-  if (!token) return res.status(401).send("User not authenticated.");
 
   try {
     const data = jwt.verifyToken(token);
@@ -24,7 +27,7 @@ const auth = (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(401).send("Invalid token.");
+    res.status(401).json({ message: "Invalid token." });
   }
 };
 
