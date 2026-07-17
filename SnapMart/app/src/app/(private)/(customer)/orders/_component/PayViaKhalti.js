@@ -26,7 +26,7 @@ const PayViaKhalti = ({ orderId }) => {
   return (
     <button
       onClick={initKhaltiPayment}
-      className="bg-white text-white px-4 py-2 rounded-md shadow flex gap-2 items-center"
+      className="bg-white text-gray-700 px-4 py-2 rounded-md shadow flex gap-2 items-center"
     >
       <Image
         src={khaltiLogo}
