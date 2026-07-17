@@ -111,7 +111,7 @@ const UsersTable = () => {
                   ))}
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {format(user.createdAt, "dd MMM, yyyy")}
+                  {user.createdAt ? format(new Date(user.createdAt), "dd MMM, yyyy") : "N/A"}
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <EditUser userId={user._id} />
