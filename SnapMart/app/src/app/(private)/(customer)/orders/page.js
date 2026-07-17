@@ -94,7 +94,7 @@ const OrderPage = () => {
               </div>
               <div>
                 <h3 className="text-gray-500">Date Placed</h3>
-                <p className="">{format(order.createdDate, "dd MMM, yyyy")}</p>
+                <p className="">{order.createdDate ? format(new Date(order.createdDate), "dd MMM, yyyy") : "N/A"}</p>
               </div>
               <div>
                 <h3 className="text-gray-500">Order Number</h3>

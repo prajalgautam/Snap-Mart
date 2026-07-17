@@ -63,7 +63,7 @@ const UpdateOrderPage = () => {
         Order Number: {order.orderNumber}
       </h2>
 
-      <p>Order Date: {format(order.createdDate, "dd MMM, yyyy")}</p>
+      <p>Order Date: {order.createdDate ? format(new Date(order.createdDate), "dd MMM, yyyy") : "N/A"}</p>
       <p className="text-lg my-2 font-semibold">
         Total amount: {order.totalPrice}
       </p>

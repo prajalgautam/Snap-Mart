@@ -157,7 +157,7 @@ const OrdersTable = () => {
                   <OrderStatus status={order.status} />
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {format(order.createdDate, "dd MMM, yyyy")}
+                  {order.createdDate ? format(new Date(order.createdDate), "dd MMM, yyyy") : "N/A"}
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <EditOrder orderId={order._id} />
