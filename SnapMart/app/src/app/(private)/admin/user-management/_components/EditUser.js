@@ -7,7 +7,7 @@ import { USER_MANAGEMENT_ROUTE } from "@/constants/routes";
 const EditUser = ({ userId }) => {
   const user = useAuthStore((state) => state.user);
 
-  if (!user.roles.includes(ROLE_ADMIN)) return;
+  if (!user?.roles?.includes(ROLE_ADMIN)) return;
 
   return (
     <div className="flex gap-2">

@@ -16,9 +16,10 @@ const ProductsTable = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { user } = useAuthStore.getState();
+  const user = useAuthStore((state) => state.user);
 
   function fetchProducts() {
+    if (!user?._id) return;
     getProducts({ createdBy: user._id })
       .then((data) => {
         setProducts(data);
@@ -28,8 +29,10 @@ const ProductsTable = () => {
   }
 
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (user?._id) {
+      fetchProducts();
+    }
+  }, [user?._id]);
 
   if (loading)
     return (

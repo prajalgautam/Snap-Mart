@@ -74,8 +74,11 @@ const LoginPage = () => {
       <div className="flex items-center justify-center py-10 md:py-20">
         <div className="w-full rounded-lg sm:max-w-md dark:bg-gray-900 ">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 text-sm text-blue-700 dark:text-blue-300">
-              <strong>Demo:</strong> demo@snapmart.com / Demo@123
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 text-xs text-blue-700 dark:text-blue-300 space-y-1">
+              <strong>Demo Accounts:</strong>
+              <div>• <strong>Customer:</strong> demo@snapmart.com / Demo@123</div>
+              <div>• <strong>Merchant:</strong> merchant@snapmart.com / Merchant@123</div>
+              <div>• <strong>Admin:</strong> admin@snapmart.com / Admin@123</div>
             </div>
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account

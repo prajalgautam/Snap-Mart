@@ -10,7 +10,7 @@ import {
   ORDER_SHIPPED,
 } from "@/constants/orderStatus";
 import { HOME_ROUTE, PRODUCTS_ROUTE } from "@/constants/routes";
-import { ROLE_ADMIN } from "@/constants/userRoles";
+import { ROLE_ADMIN, ROLE_MERCHANT } from "@/constants/userRoles";
 import useAuthStore from "@/stores/authStore";
 import { format } from "date-fns";
 import { useParams, useRouter } from "next/navigation";
@@ -36,17 +36,24 @@ const UpdateOrderPage = () => {
   }
 
   useEffect(() => {
-    if (!user.roles.includes(ROLE_ADMIN)) return router.replace(HOME_ROUTE);
+    if (user) {
+      if (
+        !user.roles?.includes(ROLE_ADMIN) &&
+        !user.roles?.includes(ROLE_MERCHANT)
+      ) {
+        return router.replace(HOME_ROUTE);
+      }
 
-    const orderId = params.id;
+      const orderId = params.id;
 
-    getOrdersById(orderId)
-      .then((res) => {
-        setOrder(res.data);
-        setStatus(res.data.status);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+      getOrdersById(orderId)
+        .then((res) => {
+          setOrder(res.data);
+          setStatus(res.data.status);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [user]);
 
   if (!order) return;
 

@@ -11,69 +11,71 @@ const Contact = () => {
           referrerPolicy="no-referrer-when-downgrade"
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mt-8">
-          <form className="flex flex-col gap-3" action="#">
+          <form className="flex flex-col gap-4 bg-white dark:bg-gray-950 p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-md" action="#">
             <input
               type="text"
               id="name"
               name="name"
               required
-              placeholder="Your name"
-              className="w-full bg-white border border-primary/20 rounded-2xl px-4 py-2 focus:outline-2 focus:outline-primary"
+              placeholder="Your Name"
+              className="w-full bg-slate-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <input
               type="email"
               id="email"
               name="email"
               required
-              placeholder="Email address"
-              className="w-full bg-white border border-primary/20 rounded-2xl px-4 py-2 focus:outline-2 focus:outline-primary"
+              placeholder="Email Address"
+              className="w-full bg-slate-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <input
               type="tel"
               id="phone"
               name="phone"
               required
-              placeholder="Phone number"
-              className="w-full bg-white border border-primary/20 rounded-2xl px-4 py-2 focus:outline-2 focus:outline-primary"
+              placeholder="Phone Number"
+              className="w-full bg-slate-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
             <textarea
               name="message"
               id="message"
-              placeholder="Your message..."
-              rows={5}
-              className="w-full bg-white border border-primary/20 rounded-2xl px-4 py-2 focus:outline-2 focus:outline-primary"
+              placeholder="How can we help your shop or order?"
+              rows={4}
+              className="w-full bg-slate-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl px-4 py-3 text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
               defaultValue={""}
             />
-            <button className="bg-primary rounded-3xl text-white px-10 py-3 transition duration-300 ease max-w-fit mt-2">
+            <button className="bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider rounded-full px-8 py-3.5 transition duration-300 ease max-w-fit mt-2 shadow-lg shadow-primary/20">
               Send Message
             </button>
           </form>
-          <div className="info">
-            <h2 className="text-3xl dark:text-white font-bold">
-              Let's Connect
+          <div className="info flex flex-col justify-center">
+            <h2 className="text-3xl dark:text-white font-black tracking-tight">
+              Let&apos;s Connect
             </h2>
-            <p className="text-light dark:text-gray-300 text-sm my-4">
-              Have any questions? Please reach out to us.
+            <p className="text-gray-500 dark:text-gray-400 text-sm my-4 leading-relaxed">
+              Have questions about listing your store on SnapMart, API integrations, or deliveries? Reach out to our hyperlocal coordination team.
             </p>
-            <a
-              href="https://maps.app.goo.gl/NCITCollegeBalkumari"
-              target="_blank"
-              className="m-1 text-sm block text-dark dark:text-white hover:text-primary"
-            >
-              📍 Balkumari, Lalitpur, Nepal
-            </a>
-            <a
-              href="mailto:info@ncit.edu.np"
-              className="m-1 text-sm block text-dark dark:text-white hover:text-primary"
-            >
-              📨 info@ncit.edu.np
-            </a>
-            <a
-              href="tel:+977-1-5000000"
-              className="m-1 text-sm block text-dark dark:text-white hover:text-primary"
-            >
-              📞 +977-1-5000000
-            </a>
+            <div className="space-y-3 mt-2 text-sm text-gray-700 dark:text-gray-300">
+              <a
+                href="https://maps.app.goo.gl/NCITCollegeBalkumari"
+                target="_blank"
+                className="flex items-center gap-2 hover:text-primary transition-all"
+              >
+                <span>📍</span> <span>SnapMart Lalitpur Hub — Balkumari, Lalitpur, Nepal</span>
+              </a>
+              <a
+                href="mailto:support@snapmart.com"
+                className="flex items-center gap-2 hover:text-primary transition-all"
+              >
+                <span>📨</span> <span>support@snapmart.com</span>
+              </a>
+              <a
+                href="tel:+977-1-5000000"
+                className="flex items-center gap-2 hover:text-primary transition-all"
+              >
+                <span>📞</span> <span>+977-1-5000000</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

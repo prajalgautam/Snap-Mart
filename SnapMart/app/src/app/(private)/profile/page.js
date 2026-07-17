@@ -12,6 +12,7 @@ import Spinner from "@/components/Spinner";
 import { useRouter } from "next/navigation";
 import { updateUser } from "@/api/users";
 import ProfileImage from "./_components/ProfileImage";
+import { ROLE_MERCHANT } from "@/constants/userRoles";
 
 const ProfilePage = () => {
   const user = useAuthStore((state) => state.user);
@@ -20,8 +21,10 @@ const ProfilePage = () => {
   const { register, handleSubmit } = useForm({
     values: {
       ...user,
-      city: user?.address.city,
-      province: user?.address.province,
+      city: user?.address?.city || "",
+      province: user?.address?.province || "Bagmati",
+      shopName: user?.shopName || "",
+      shopCategory: user?.shopCategory || "Groceries",
     },
   });
 
@@ -29,6 +32,8 @@ const ProfilePage = () => {
 
   function submitForm(data) {
     setLoading(true);
+
+    const isMerchant = user?.roles?.includes(ROLE_MERCHANT);
 
     updateUser(user._id, {
       name: data.name,
@@ -39,6 +44,11 @@ const ProfilePage = () => {
         city: data.city,
         province: data.province,
       },
+      roles: user.roles,
+      ...(isMerchant && {
+        shopName: data.shopName,
+        shopCategory: data.shopCategory,
+      }),
     })
       .then((response) => {
         setUser({ user: response.data });
@@ -146,6 +156,55 @@ const ProfilePage = () => {
                   <option value="Sudur-Paschim">Sudur-Paschim</option>
                 </select>
               </div>
+
+              {user?.roles?.includes(ROLE_MERCHANT) && (
+                <div className="space-y-4 p-4 bg-white/50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600">
+                  <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-200">
+                    Shop Details
+                  </h3>
+                  <div>
+                    <label
+                      htmlFor="shopName"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Shop Name
+                    </label>
+                    <input
+                      type="text"
+                      id="shopName"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="e.g. ABC Grocery Store"
+                      required
+                      {...register("shopName")}
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="shopCategory"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Shop Category
+                    </label>
+                    <select
+                      id="shopCategory"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      {...register("shopCategory")}
+                    >
+                      <option value="Groceries">Groceries</option>
+                      <option value="Fruits">Fruits</option>
+                      <option value="Vegetables">Vegetables</option>
+                      <option value="Dairy">Dairy</option>
+                      <option value="Beverages">Beverages</option>
+                      <option value="Snacks">Snacks</option>
+                      <option value="Cosmetics">Cosmetics</option>
+                      <option value="Pharmacy">Pharmacy</option>
+                      <option value="Stationery">Stationery</option>
+                      <option value="Household Items">Household Items</option>
+                      <option value="Electronics">Electronics</option>
+                    </select>
+                  </div>
+                </div>
+              )}
 
               <button
                 type="submit"

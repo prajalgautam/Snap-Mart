@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { ROLE_ADMIN, ROLE_SUPER_ADMIN } from "../constants/roles.js";
 import User from "../models/User.js";
 import uploadFile from "../utils/fileUploader.js";
@@ -42,16 +43,24 @@ const updateUser = async (id, data, authUser) => {
     };
   }
 
-  return await User.findByIdAndUpdate(
-    id,
-    {
-      name: data?.name,
-      phone: data?.phone,
-      address: data?.address,
-      isActive: data?.isActive,
-    },
-    { returnDocument: "after" },
-  );
+  const updateFields = {
+    name: data?.name,
+    phone: data?.phone,
+    address: data?.address,
+    isActive: data?.isActive,
+    shopName: data?.shopName,
+    shopCategory: data?.shopCategory,
+  };
+
+  // If password is provided, hash it before saving
+  if (data?.password) {
+    const salt = bcrypt.genSaltSync(10);
+    updateFields.password = bcrypt.hashSync(data.password, salt);
+  }
+
+  return await User.findByIdAndUpdate(id, updateFields, {
+    returnDocument: "after",
+  });
 };
 
 const deleteUser = async (id) => {

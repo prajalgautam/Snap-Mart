@@ -25,7 +25,10 @@ const UsersTable = () => {
   }
 
   useEffect(() => {
-    fetchUsers();
+    const timer = setTimeout(() => {
+      fetchUsers();
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading)

@@ -301,12 +301,19 @@ export const SAMPLE_PRODUCTS = [
       "Daily multivitamin and mineral supplement. 30 tablets per pack.",
     createdAt: "2026-07-12T00:00:00.000Z",
   },
-];
+].map((p) => ({ ...p, createdBy: p.createdBy || "mock-user-merchant" }));
 
 export const SAMPLE_CATEGORIES = [
   "Groceries",
+  "Fruits",
+  "Vegetables",
+  "Dairy",
+  "Beverages",
+  "Snacks",
+  "Cosmetics",
   "Pharmacy",
   "Stationery",
+  "Household Items",
   "Electronics",
 ];
 
@@ -328,8 +335,25 @@ export const SAMPLE_BRANDS = [
   "HP",
 ];
 
+export function getMockProducts() {
+  if (typeof window === "undefined") return SAMPLE_PRODUCTS;
+  try {
+    const stored = localStorage.getItem("snapmart_mock_products");
+    if (stored) return JSON.parse(stored);
+    localStorage.setItem("snapmart_mock_products", JSON.stringify(SAMPLE_PRODUCTS));
+  } catch {}
+  return SAMPLE_PRODUCTS;
+}
+
+export function saveMockProducts(products) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem("snapmart_mock_products", JSON.stringify(products));
+  } catch {}
+}
+
 export function filterProducts(searchParams = {}) {
-  let results = [...SAMPLE_PRODUCTS];
+  let results = getMockProducts();
 
   if (searchParams.category) {
     results = results.filter(
@@ -351,6 +375,9 @@ export function filterProducts(searchParams = {}) {
     results = results.filter((p) =>
       p.name.toLowerCase().includes(searchParams.name.toLowerCase())
     );
+  }
+  if (searchParams.createdBy) {
+    results = results.filter((p) => p.createdBy === searchParams.createdBy);
   }
   if (searchParams.sort) {
     try {

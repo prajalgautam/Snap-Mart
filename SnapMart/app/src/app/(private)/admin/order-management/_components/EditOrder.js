@@ -7,7 +7,8 @@ import { FaPencil } from "react-icons/fa6";
 const EditOrder = ({ orderId }) => {
   const user = useAuthStore((state) => state.user);
 
-  if (!user.roles.includes(ROLE_ADMIN)) return;
+  const isAllowed = user?.roles?.includes(ROLE_ADMIN) || user?.roles?.includes("MERCHANT");
+  if (!isAllowed) return;
 
   return (
     <div className="flex gap-2">

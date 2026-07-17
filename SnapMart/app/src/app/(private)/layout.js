@@ -2,20 +2,25 @@
 
 import useAuthStore from "@/stores/authStore";
 import { LOGIN_ROUTE } from "@/constants/routes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const PrivateLayout = ({ children }) => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push(LOGIN_ROUTE);
-    }
-  }, [isAuthenticated, router]);
+    setMounted(true);
+  }, []);
 
-  if (!isAuthenticated) return null;
+  useEffect(() => {
+    if (mounted && !isAuthenticated) {
+      router.replace(LOGIN_ROUTE);
+    }
+  }, [mounted, isAuthenticated, router]);
+
+  if (!mounted || !isAuthenticated) return null;
 
   return <>{children}</>;
 };

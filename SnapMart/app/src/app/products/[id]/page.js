@@ -1,3 +1,5 @@
+"use client";
+
 import { getProductById } from "@/api/products";
 import ProductImage from "./_components/ProductImage";
 import { FaStar } from "react-icons/fa6";
@@ -5,28 +7,40 @@ import { FaRegHeart } from "react-icons/fa";
 import AddToCart from "../_components/AddToCart";
 import ProductDescription from "./_components/ProductDescription";
 import SuggestedProducts from "./_components/SuggestedProducts";
+import Spinner from "@/components/Spinner";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-async function fetchProductById(id) {
-  const product = await getProductById(id);
+const ProductDetailsPage = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  return product;
-}
+  useEffect(() => {
+    async function fetchProduct() {
+      const data = await getProductById(id);
+      setProduct(data);
+      setLoading(false);
+    }
 
-export const generateMetadata = async ({ params }) => {
-  const { id } = await params;
+    fetchProduct();
+  }, [id]);
 
-  const product = await fetchProductById(id);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <Spinner />
+      </div>
+    );
+  }
 
-  return {
-    title: product.name,
-    description: `${product.name} ${product.brand} ${product.category}`,
-  };
-};
-
-const ProductDetailsPage = async ({ params }) => {
-  const { id } = await params;
-
-  const product = await fetchProductById(id);
+  if (!product) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <p className="text-red-500 text-lg">Product not found.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -55,12 +69,12 @@ const ProductDetailsPage = async ({ params }) => {
             Rs. {product.price}
           </h3>
           <p className="text-gray-700 dark:text-gray-300">
-            Whether you&apos;re hitting the pavement for a quick jog or
+            Whether you're hitting the pavement for a quick jog or
             embarking on a longer training session, your feet will thank you for
             the exceptional cushioning and responsive ride. The breathable
             engineered mesh upper ensures optimal airflow, preventing
             overheating and discomfort. Its flexible yet supportive structure
-            adapts to your foot&apos;s natural movement, providing a snug,
+            adapts to your foot's natural movement, providing a snug,
             personalized fit without sacrificing freedom.
           </p>
           <div className="grid grid-cols-[1fr_auto] gap-5 py-5">

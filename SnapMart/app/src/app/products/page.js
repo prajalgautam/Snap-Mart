@@ -1,15 +1,51 @@
+"use client";
+
 import { getBrands, getCategories, getProducts } from "@/api/products";
 import ProductCard from "./_components/Card";
 import Filters from "./_components/Filters";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Spinner from "@/components/Spinner";
 
-export const metadata = {
-  title: "Products",
-};
+const ProductsPage = () => {
+  const [products, setProducts] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const ProductsPage = async ({ searchParams }) => {
-  const products = await getProducts(await searchParams);
-  const brands = await getBrands();
-  const categories = await getCategories();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+
+      const params = {};
+      searchParams.forEach((value, key) => {
+        params[key] = value;
+      });
+
+      const [productsData, brandsData, categoriesData] = await Promise.all([
+        getProducts(params),
+        getBrands(),
+        getCategories(),
+      ]);
+
+      setProducts(productsData);
+      setBrands(brandsData);
+      setCategories(categoriesData);
+      setLoading(false);
+    }
+
+    fetchData();
+  }, [searchParams]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>

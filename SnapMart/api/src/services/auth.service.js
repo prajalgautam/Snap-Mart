@@ -60,11 +60,15 @@ const register = async (data) => {
   const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(data.password, salt);
 
+  const allowedRoles = (data.roles || []).filter(
+    (role) => role === "CUSTOMER" || role === "MERCHANT"
+  );
   delete data.roles;
 
   const createdUser = await User.create({
     ...data,
     password: hashedPassword,
+    roles: allowedRoles.length > 0 ? allowedRoles : ["CUSTOMER"],
   });
 
   return {

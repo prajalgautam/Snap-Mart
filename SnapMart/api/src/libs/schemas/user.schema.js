@@ -32,4 +32,6 @@ export const userSchema = z.object({
     street: z.string().optional(),
     country: z.string().default("Nepal"),
   }),
+  shopName: z.string().optional(),
+  shopCategory: z.string().optional(),
 });

@@ -24,12 +24,20 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     setError,
+    watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      role: "CUSTOMER",
+      province: "Bagmati",
+      shopCategory: "Groceries",
+    },
+  });
   const registerUser = useAuthStore((state) => state.registerUser);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const selectedRole = watch("role");
 
   function submitForm(data) {
     setLoading(true);
@@ -43,6 +51,9 @@ const RegisterPage = () => {
         city: data.city,
         province: data.province,
       },
+      roles: [data.role],
+      shopName: data.role === "MERCHANT" ? data.shopName : null,
+      shopCategory: data.role === "MERCHANT" ? data.shopCategory : null,
     })
       .then((response) => {
         registerUser({ user: response.data });
@@ -88,6 +99,112 @@ const RegisterPage = () => {
               className="space-y-4 md:space-y-6"
               noValidate
             >
+              {/* Role Selection */}
+              <div>
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                  I want to register as a:
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <label
+                    className={`flex flex-col items-center justify-center p-3 border rounded-xl cursor-pointer transition-all ${
+                      selectedRole === "CUSTOMER"
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-gray-300 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="CUSTOMER"
+                      className="sr-only"
+                      {...register("role")}
+                    />
+                    <span className="font-semibold text-sm">Customer</span>
+                    <span className="text-[10px] text-center mt-0.5 text-gray-400">
+                      Shop & order items
+                    </span>
+                  </label>
+                  <label
+                    className={`flex flex-col items-center justify-center p-3 border rounded-xl cursor-pointer transition-all ${
+                      selectedRole === "MERCHANT"
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-gray-300 dark:border-gray-700 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      value="MERCHANT"
+                      className="sr-only"
+                      {...register("role")}
+                    />
+                    <span className="font-semibold text-sm">Merchant</span>
+                    <span className="text-[10px] text-center mt-0.5 text-gray-400">
+                      Sell & manage shop
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Merchant Details */}
+              {selectedRole === "MERCHANT" && (
+                <div className="space-y-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+                  <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-200">
+                    Shop Information
+                  </h3>
+                  <div>
+                    <label
+                      htmlFor="shopName"
+                      className="block mb-1 text-xs font-medium text-gray-900 dark:text-white"
+                    >
+                      Shop Name
+                    </label>
+                    <input
+                      type="text"
+                      id="shopName"
+                      placeholder="e.g. ABC Grocery Store"
+                      className={`bg-gray-50 border text-sm rounded-lg block w-full p-2 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white ${
+                        errors.shopName ? "border-red-500" : "border-gray-300"
+                      }`}
+                      {...register("shopName", {
+                        required:
+                          selectedRole === "MERCHANT"
+                            ? "Shop Name is required."
+                            : false,
+                      })}
+                    />
+                    {errors.shopName && (
+                      <p className="mt-0.5 text-xs text-red-600">
+                        {errors.shopName.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="shopCategory"
+                      className="block mb-1 text-xs font-medium text-gray-900 dark:text-white"
+                    >
+                      Shop Category
+                    </label>
+                    <select
+                      id="shopCategory"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      {...register("shopCategory")}
+                    >
+                      <option value="Groceries">Groceries</option>
+                      <option value="Fruits">Fruits</option>
+                      <option value="Vegetables">Vegetables</option>
+                      <option value="Dairy">Dairy</option>
+                      <option value="Beverages">Beverages</option>
+                      <option value="Snacks">Snacks</option>
+                      <option value="Cosmetics">Cosmetics</option>
+                      <option value="Pharmacy">Pharmacy</option>
+                      <option value="Stationery">Stationery</option>
+                      <option value="Household Items">Household Items</option>
+                      <option value="Electronics">Electronics</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
               {/* Name */}
               <div>
                 <label

@@ -19,11 +19,12 @@ const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { user } = useAuthStore.getState();
+  const user = useAuthStore((state) => state.user);
 
   async function fetchOrders() {
+    if (!user) return;
     try {
-      const response = user.roles.includes(ROLE_ADMIN)
+      const response = user.roles?.includes(ROLE_ADMIN)
         ? await getAllOrders()
         : await getOrdersByMerchant();
 
@@ -36,8 +37,13 @@ const OrdersTable = () => {
   }
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    if (user) {
+      const timer = setTimeout(() => {
+        fetchOrders();
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
 
   if (loading)
     return (
@@ -103,38 +109,46 @@ const OrdersTable = () => {
                   className="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <div>
-                    {order.orderItems.map((item, index) => (
-                      <div key={index} className="flex items-center py-1">
-                        {item.imageUrls.length > 0 ? (
-                          <Image
-                            src={item.imageUrls[0]}
-                            alt={item.name}
-                            height={64}
-                            width={64}
-                            className="w-12 h-12 mr-3 object-cover rounded"
-                          />
-                        ) : (
-                          <FaImage className="w-12 h-12 mr-3 rounded text-gray-500" />
-                        )}
-                        <div>
-                          <p className="font-medium">{item.name}</p>
-                          <span className="text-xs text-gray-500">
-                            {item.category},
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {item.brand}
-                          </span>
+                    {order.orderItems.map((item, index) => {
+                      const productInfo = item.product || item;
+                      const imageUrls = productInfo.imageUrls || [];
+                      const name = productInfo.name || "Unknown Product";
+                      const category = productInfo.category || "";
+                      const brand = productInfo.brand || "";
+
+                      return (
+                        <div key={index} className="flex items-center py-1">
+                          {imageUrls.length > 0 ? (
+                            <Image
+                              src={imageUrls[0]}
+                              alt={name}
+                              height={64}
+                              width={64}
+                              className="w-12 h-12 mr-3 object-cover rounded"
+                            />
+                          ) : (
+                            <FaImage className="w-12 h-12 mr-3 rounded text-gray-500" />
+                          )}
+                          <div className="ml-3">
+                            <p className="font-medium">{name}</p>
+                            <span className="text-xs text-gray-500 mr-2">
+                              {category}
+                            </span>
+                            <span className="text-xs text-gray-400">
+                              ({brand})
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </th>
                 <td className="px-4 py-2">
                   <h3 className="text-gray-800 dark:text-gray-100">
-                    {order.user.name}
+                    {order.user?.name || "Guest Customer"}
                   </h3>
-                  <p className="text-xs">{order.user.email}</p>
-                  <p className="text-xs">{order.user.phone}</p>
+                  <p className="text-xs">{order.user?.email || "No Email"}</p>
+                  <p className="text-xs">{order.user?.phone || "No Phone"}</p>
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-500 whitespace-nowrap dark:text-white">
                   Rs. {order.totalPrice}

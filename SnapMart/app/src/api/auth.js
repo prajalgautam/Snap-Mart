@@ -20,14 +20,14 @@ function saveMockUsers(users) {
   } catch {}
 }
 
-// Seed default demo user
+// Seed default demo users
 function seedDemoUser() {
   const users = getMockUsers();
   const hasDemo = users.some((u) => u.email === "demo@snapmart.com");
   if (!hasDemo) {
     users.push({
       _id: "mock-user-1",
-      name: "Demo User",
+      name: "Demo Customer",
       email: "demo@snapmart.com",
       phone: "9841234567",
       password: "Demo@123",
@@ -37,8 +37,43 @@ function seedDemoUser() {
       token: "mock-token-demo-user-001",
       profileImageUrl: null,
     });
-    saveMockUsers(users);
   }
+
+  const hasMerchant = users.some((u) => u.email === "merchant@snapmart.com");
+  if (!hasMerchant) {
+    users.push({
+      _id: "mock-user-merchant",
+      name: "ABC Owner",
+      email: "merchant@snapmart.com",
+      phone: "9841112222",
+      password: "Merchant@123",
+      address: { city: "Lalitpur", province: "Bagmati" },
+      roles: ["MERCHANT"],
+      isActive: true,
+      shopName: "ABC Grocery Store",
+      shopCategory: "Groceries",
+      token: "mock-token-demo-merchant-001",
+      profileImageUrl: null,
+    });
+  }
+
+  const hasAdmin = users.some((u) => u.email === "admin@snapmart.com");
+  if (!hasAdmin) {
+    users.push({
+      _id: "mock-user-admin",
+      name: "Super Admin",
+      email: "admin@snapmart.com",
+      phone: "9841333444",
+      password: "Admin@123",
+      address: { city: "Kathmandu", province: "Bagmati" },
+      roles: ["ADMIN"],
+      isActive: true,
+      token: "mock-token-demo-admin-001",
+      profileImageUrl: null,
+    });
+  }
+
+  saveMockUsers(users);
 }
 
 seedDemoUser();
@@ -60,7 +95,7 @@ export const login = async (data) => {
   if (!user) {
     const error = new Error("Invalid email or password.");
     error.response = {
-      data: "Invalid email or password. Try demo@snapmart.com / Demo@123",
+      data: "Invalid email or password. Try: demo@snapmart.com (Customer) / merchant@snapmart.com (Merchant) / admin@snapmart.com (Admin)",
     };
     throw error;
   }
@@ -92,7 +127,9 @@ export const signup = async (data) => {
     phone: data.phone,
     password: data.password,
     address: data.address || { city: "Kathmandu", province: "Bagmati" },
-    roles: ["CUSTOMER"],
+    roles: data.roles || ["CUSTOMER"],
+    shopName: data.shopName || null,
+    shopCategory: data.shopCategory || null,
     isActive: true,
     token: `mock-token-${Date.now()}`,
     profileImageUrl: null,

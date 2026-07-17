@@ -10,7 +10,7 @@ import {
 } from "@/constants/routes";
 import { usePathname, useRouter } from "next/navigation";
 import usePreferenceStore from "@/stores/preferenceStore";
-import { FaMoon, FaSun } from "react-icons/fa6";
+import { FaMoon, FaSun, FaShoppingCart } from "react-icons/fa";
 import useCartStore from "@/stores/cartStore";
 import Logo from "./Logo";
 import Account from "./Account";
@@ -28,11 +28,11 @@ const Header = () => {
   if (pathName.startsWith("/admin")) return;
 
   return (
-    <header className="py-4 shadow-md bg-white dark:bg-gray-950 sticky top-0 z-10">
-      <div className="container mx-auto px-4">
+    <header className="py-4 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-900 sticky top-0 z-50 transition-all">
+      <div className="container mx-auto px-6">
         <div className="flex items-center justify-between gap-4">
           <Logo />
-          <nav className="items-center gap-3 hidden md:flex">
+          <nav className="items-center gap-6 hidden md:flex font-medium text-sm">
             {navMenu.map((menu) => {
               const isActive =
                 pathName == menu.route ||
@@ -41,7 +41,11 @@ const Header = () => {
               return (
                 <Link
                   key={menu.route}
-                  className={`text-dark dark:text-gray-200 px-2 py-1 hover:text-primary ${isActive ? "text-primary" : ""}`}
+                  className={`px-1 py-1 transition-all ${
+                    isActive
+                      ? "text-primary font-bold border-b-2 border-primary"
+                      : "text-gray-600 dark:text-gray-300 hover:text-primary"
+                  }`}
                   href={menu.route}
                 >
                   {menu.label}
@@ -52,17 +56,17 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-white h-10 w-10"
+              className="flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 h-10 w-10 transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
             >
-              {theme == "light" ? <FaMoon /> : <FaSun />}
+              {theme == "light" ? <FaMoon className="text-sm" /> : <FaSun className="text-sm" />}
             </button>
 
             <Link
               href={CART_ROUTE}
-              className="px-4 py-1.5 rounded-3xl bg-gray-100 dark:bg-gray-700 h-10"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-200 dark:hover:bg-gray-800"
             >
-              🛒
-              <span className="ml-1 bg-primary px-2 py-0.5 text-xs rounded-xl text-white">
+              <FaShoppingCart className="text-sm text-primary" />
+              <span className="bg-primary px-2 py-0.5 text-[10px] font-bold rounded-full text-white">
                 {products.length}
               </span>
             </Link>
@@ -71,7 +75,7 @@ const Header = () => {
               <Account />
             ) : (
               <Link
-                className="hover:bg-primary text-white px-5 py-1.5 rounded-lg bg-primary-dark"
+                className="bg-primary hover:bg-primary-dark text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 rounded-full transition-all shadow-lg shadow-primary/10 hover:shadow-primary/20"
                 href={LOGIN_ROUTE}
               >
                 Login

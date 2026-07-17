@@ -61,6 +61,12 @@ const userSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String,
   },
+  shopName: {
+    type: String,
+  },
+  shopCategory: {
+    type: String,
+  },
 });
 
 export default mongoose.model("User", userSchema);
