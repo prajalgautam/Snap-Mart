@@ -15,6 +15,7 @@ const ResetPasswordPage = () => {
     formState: { errors },
   } = useForm();
 
+  // eslint-disable-next-line no-unused-vars
   const password = watch("password");
 
   const searchParams = useSearchParams();

@@ -18,6 +18,7 @@ const ProductsTable = () => {
 
   const user = useAuthStore((state) => state.user);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function fetchProducts() {
     if (!user?._id) return;
     getProducts({ createdBy: user._id })
@@ -32,6 +33,7 @@ const ProductsTable = () => {
     if (user?._id) {
       fetchProducts();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?._id]);
 
   if (loading)

@@ -128,17 +128,21 @@ const CartPage = () => {
                   People also bought
                 </h3>
                 <div className="mt-6 grid grid-cols-3 gap-4 sm:mt-8">
-                  <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <a href="#" className="overflow-hidden rounded">
-                      <img
+                      <Image
                         className="mx-auto h-44 w-44 dark:hidden"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
-                      <img
+                      <Image
                         className="mx-auto hidden h-44 w-44 dark:block"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
                     </a>
                     <div>
@@ -216,17 +220,21 @@ const CartPage = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <a href="#" className="overflow-hidden rounded">
-                      <img
+                      <Image
                         className="mx-auto h-44 w-44 dark:hidden"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-light.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
-                      <img
+                      <Image
                         className="mx-auto hidden h-44 w-44 dark:block"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/ps5-dark.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
                     </a>
                     <div>
@@ -304,17 +312,21 @@ const CartPage = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+                    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <a href="#" className="overflow-hidden rounded">
-                      <img
+                      <Image
                         className="mx-auto h-44 w-44 dark:hidden"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-light.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
-                      <img
+                      <Image
                         className="mx-auto hidden h-44 w-44 dark:block"
                         src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-dark.svg"
                         alt="imac image"
+                        height={176}
+                        width={176}
                       />
                     </a>
                     <div>
