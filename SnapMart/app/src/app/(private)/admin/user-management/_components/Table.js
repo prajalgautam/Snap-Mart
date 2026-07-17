@@ -80,7 +80,7 @@ const UsersTable = () => {
             users?.map((user, index) => (
               <tr
                 key={user._id}
-                className="buser-b buser-gray-200 dark:buser-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="border-b border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <td className="px-4 py-2 font-medium text-gray-500 whitespace-nowrap dark:text-white">
                   {index + 1}
