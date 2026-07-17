@@ -119,7 +119,7 @@ const ProductsTable = () => {
                   </div>
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {format(product.createdAt, "dd MMM, yyyy")}
+                  {product.createdAt ? format(new Date(product.createdAt), "dd MMM, yyyy") : "N/A"}
                 </td>
                 <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                   <div className="flex gap-2">
