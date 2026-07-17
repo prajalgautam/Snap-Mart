@@ -1,6 +1,6 @@
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import placeholder from "@/assets/images/placeholder.png";
 import useAuthStore from "@/stores/authStore";
@@ -12,9 +12,15 @@ const ProfileImage = () => {
 
   const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState();
-  const [localImageUrl, setLocalImageUrl] = useState(user?.profileImageUrl);
+  const [localImageUrl, setLocalImageUrl] = useState(() => user?.profileImageUrl);
 
   const setUser = useAuthStore((state) => state.setUser);
+
+  // Sync local image URL when user changes (skip if user is selecting a new file)
+  const effectiveImageUrl = useMemo(() => {
+    if (profileImage) return localImageUrl;
+    return user?.profileImageUrl || localImageUrl;
+  }, [profileImage, user?.profileImageUrl, localImageUrl]);
 
   function updateProfileImage() {
     setLoading(true);
@@ -44,7 +50,7 @@ const ProfileImage = () => {
       </h1>
       <div className="flex items-center py-5 gap-4">
         <Image
-          src={localImageUrl ?? placeholder}
+          src={effectiveImageUrl ?? placeholder}
           alt=""
           width={250}
           height={250}

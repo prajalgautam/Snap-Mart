@@ -43,6 +43,10 @@ const OrderPage = () => {
       cancelOrder(orderId)
         .then(() => {
           toast.info("Order cancelled!");
+          // Refresh orders list
+          getOrdersByUser(orderStatus ?? "")
+            .then((res) => setOrders(res.data))
+            .catch((error) => console.log(error));
         })
         .catch((error) => console.log(error));
     }

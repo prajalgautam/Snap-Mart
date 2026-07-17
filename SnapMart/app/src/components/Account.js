@@ -5,12 +5,13 @@ import Link from "next/link";
 import {
   DASHBOARD_ROUTE,
   LOGIN_ROUTE,
+  ORDER_MANAGEMENT_ROUTE,
   ORDERS_ROUTE,
   PROFILE_ROUTE,
 } from "@/constants/routes";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ROLE_ADMIN, ROLE_MERCHANT } from "@/constants/userRoles";
+import { ROLE_ADMIN, ROLE_CUSTOMER, ROLE_MERCHANT } from "@/constants/userRoles";
 
 const Account = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,6 +42,10 @@ const Account = () => {
     };
   }, []);
 
+  const isCustomer = user?.roles?.includes(ROLE_CUSTOMER);
+  const isMerchant = user?.roles?.includes(ROLE_MERCHANT);
+  const isAdmin = user?.roles?.includes(ROLE_ADMIN);
+
   return (
     <div
       className="relative"
@@ -65,14 +70,23 @@ const Account = () => {
           >
             Account
           </Link>
-          <Link
-            href={ORDERS_ROUTE}
-            className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
-          >
-            Orders
-          </Link>
-          {(user?.roles?.includes(ROLE_ADMIN) ||
-            user?.roles?.includes(ROLE_MERCHANT)) && (
+          {isCustomer && (
+            <Link
+              href={ORDERS_ROUTE}
+              className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+            >
+              Orders
+            </Link>
+          )}
+          {(isMerchant || isAdmin) && (
+            <Link
+              href={ORDER_MANAGEMENT_ROUTE}
+              className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
+            >
+              Orders
+            </Link>
+          )}
+          {(isMerchant || isAdmin) && (
             <Link
               href={DASHBOARD_ROUTE}
               className="bg-gray-50 dark:bg-gray-800 dark:text-white px-4 py-1 rounded-md"
