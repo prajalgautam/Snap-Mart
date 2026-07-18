@@ -6,7 +6,8 @@ import auth from "../middlewares/auth.js";
 import roleBasedAuth from "../middlewares/roleBasedAuth.js";
 import { ROLE_ADMIN, ROLE_MERCHANT } from "../constants/roles.js";
 import validate from "../middlewares/validator.js";
-import { productSchema } from "../libs/schemas/product.schema.js";
+import { productSchema, productUpdateSchema } from "../libs/schemas/product.schema.js";
+import validateObjectId from "../middlewares/objectId.js";
 
 const router = express.Router();
 
@@ -19,12 +20,12 @@ router.get("/categories", productController.getCategories);
 router.get("/count", productController.getTotalCount);
 
 // Dynamic route (:param)
-router.get("/:id", productController.getProductById);
+router.get("/:id", validateObjectId(), productController.getProductById);
 
 router.post(
   "/",
   auth,
-  roleBasedAuth(ROLE_MERCHANT),
+  roleBasedAuth(ROLE_MERCHANT, ROLE_ADMIN),
   validate(productSchema),
   productController.createProduct,
 );
@@ -32,14 +33,17 @@ router.post(
 router.put(
   "/:id",
   auth,
-  roleBasedAuth(ROLE_MERCHANT),
+  validateObjectId(),
+  roleBasedAuth(ROLE_MERCHANT, ROLE_ADMIN),
+  validate(productUpdateSchema),
   productController.updateProduct,
 );
 
 router.delete(
   "/:id",
   auth,
-  roleBasedAuth(ROLE_MERCHANT),
+  validateObjectId(),
+  roleBasedAuth(ROLE_MERCHANT, ROLE_ADMIN),
   productController.deleteProduct,
 );
 

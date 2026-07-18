@@ -16,10 +16,13 @@ const BestSeller = async () => {
   }
 
   if (!product) {
-    // Fallback: get first product as best seller
-    const { getProducts } = await import("@/api/products");
-    const products = await getProducts({ limit: 1 });
-    product = products?.[0] || null;
+    try {
+      const { getProducts } = await import("@/api/products");
+      const products = await getProducts({ limit: 1 });
+      product = products?.[0] || null;
+    } catch {
+      product = null;
+    }
   }
 
   if (!product) return null;

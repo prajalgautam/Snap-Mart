@@ -6,7 +6,7 @@ import useAuthStore from "@/stores/authStore";
 import { HOME_ROUTE, LOGIN_ROUTE } from "@/constants/routes";
 import { signup } from "@/api/auth";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useState } from "react";
 import Spinner from "@/components/Spinner";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,7 @@ const RegisterPage = () => {
     register,
     handleSubmit,
     setError,
-    watch,
+    control,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -37,7 +37,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-  const selectedRole = watch("role");
+  const selectedRole = useWatch({ control, name: "role" });
 
   function submitForm(data) {
     setLoading(true);
@@ -52,8 +52,12 @@ const RegisterPage = () => {
         province: data.province,
       },
       roles: [data.role],
-      shopName: data.role === "MERCHANT" ? data.shopName : null,
-      shopCategory: data.role === "MERCHANT" ? data.shopCategory : null,
+      ...(data.role === "MERCHANT"
+        ? {
+            shopName: data.shopName,
+            shopCategory: data.shopCategory,
+          }
+        : {}),
     })
       .then((response) => {
         registerUser({ user: response.data });

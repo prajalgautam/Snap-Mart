@@ -26,7 +26,6 @@ const CheckoutButton = ({ products, totalPrice }) => {
     setLoading(true);
 
     createOrder({
-      totalPrice,
       orderItems: products.map((item) => ({
         product: item._id,
         quantity: item.quantity,
@@ -43,7 +42,8 @@ const CheckoutButton = ({ products, totalPrice }) => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Unable to checkout!");
+        const message = error?.response?.data?.message || error?.response?.data;
+        toast.error(typeof message === "string" ? message : "Unable to checkout!");
       })
       .finally(() => setLoading(false));
   }

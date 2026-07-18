@@ -34,4 +34,13 @@ export const userSchema = z.object({
   }),
   shopName: z.string().optional(),
   shopCategory: z.string().optional(),
-});
+}).strict();
+
+export const userUpdateSchema = userSchema
+  .pick({ name: true, phone: true, password: true, address: true, isActive: true, shopName: true, shopCategory: true })
+  .partial()
+  .strict();
+
+export const rolesUpdateSchema = z.object({
+  roles: z.array(z.enum([ROLE_CUSTOMER, ROLE_MERCHANT, ROLE_ADMIN, ROLE_SUPER_ADMIN])).min(1),
+}).strict();

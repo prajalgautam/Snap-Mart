@@ -21,7 +21,6 @@ const OrdersTable = () => {
 
   const user = useAuthStore((state) => state.user);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   async function fetchOrders() {
     if (!user) return;
     try {

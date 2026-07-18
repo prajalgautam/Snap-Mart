@@ -42,6 +42,8 @@ const login = async (data) => {
     phone: user.phone,
     roles: user.roles,
     profileImageUrl: user?.profileImageUrl,
+    shopName: user?.shopName,
+    shopCategory: user?.shopCategory,
   };
 };
 
@@ -80,6 +82,8 @@ const register = async (data) => {
     phone: createdUser.phone,
     roles: createdUser.roles,
     profileImageUrl: createdUser?.profileImageUrl,
+    shopName: createdUser?.shopName,
+    shopCategory: createdUser?.shopCategory,
   };
 };
 

@@ -53,7 +53,7 @@ const UpdateOrderPage = () => {
         })
         .catch((error) => console.log(error));
     }
-  }, [user]);
+  }, [params.id, router, user]);
 
   if (!order) return;
 

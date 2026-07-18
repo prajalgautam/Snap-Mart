@@ -32,7 +32,7 @@ const OrderConfirmationPage = () => {
         },
       });
     }
-  }, []);
+  }, [params.id, router, status]);
 
   return (
     <div className="flex items-center justify-center py-24">

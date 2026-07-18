@@ -7,6 +7,7 @@
     "build": "node build",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "seed:admin": "node src/scripts/seedAdmin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,7 +31,9 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.6.0",
     "hbs": "^4.2.1",
+    "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.5.0",
     "multer": "^2.1.1",

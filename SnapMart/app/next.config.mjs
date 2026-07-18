@@ -9,16 +9,11 @@ const nextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "https",
-        hostname: "picsum.photos",
-        port: "",
-        pathname: "/**",
-      },
-      {
         protocol: "http",
         hostname: "res.cloudinary.com",
         port: "",
-        pathname: "/drt20nb92/image/**",
+        // Existing records may contain Cloudinary's legacy HTTP delivery URL.
+        pathname: "/**",
       },
     ],
   },

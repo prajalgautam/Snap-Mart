@@ -28,7 +28,7 @@ const createProduct = async (req, res) => {
 
     res.json(product);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(error.status || 400).send(error.message);
   }
 };
 
@@ -37,11 +37,11 @@ const updateProduct = async (req, res) => {
   const input = req.body;
 
   try {
-    const product = await productService.updateProduct(id, input, req.files);
+    const product = await productService.updateProduct(id, input, req.files, req.user);
 
     res.json(product);
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(error.status || 400).send(error.message);
   }
 };
 
@@ -55,7 +55,7 @@ const deleteProduct = async (req, res) => {
       message: "Product deleted successfully.",
     });
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(error.status || 400).send(error.message);
   }
 };
 

@@ -11,6 +11,9 @@ const login = async (req, res) => {
 
     res.cookie("authToken", token, {
       maxAge: 86400 * 1000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
     });
 
     res.json({ ...user, token });
@@ -29,6 +32,9 @@ const register = async (req, res) => {
 
     res.cookie("authToken", token, {
       maxAge: 86400 * 1000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
     });
 
     res.json({ ...user, token });

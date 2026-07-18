@@ -40,7 +40,7 @@ const UpdateUserPage = () => {
         setRoles(res.data.roles);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [params.id]);
 
   if (!user) return;
 

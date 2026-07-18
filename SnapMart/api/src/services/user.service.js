@@ -5,17 +5,20 @@ import uploadFile from "../utils/fileUploader.js";
 import authService from "./auth.service.js";
 
 const getAll = async (query) => {
-  const sort = query.sort ? JSON.parse(query.sort) : {};
-  const limit = query.limit ?? 10;
-  const offset = query.offset ?? 0;
+  const permittedSortFields = new Set(["name", "email", "phone", "createdAt"]);
+  const requestedSort = query.sort ? JSON.parse(query.sort) : {};
+  const sort = Object.fromEntries(Object.entries(requestedSort).filter(([field, direction]) => permittedSortFields.has(field) && (direction === 1 || direction === -1)));
+  const limit = Math.min(Math.max(Number.parseInt(query.limit, 10) || 10, 1), 100);
+  const offset = Math.max(Number.parseInt(query.offset, 10) || 0, 0);
 
   const filters = {};
 
   const { name, email, phone } = query;
 
-  if (name) filters.name = { $regex: name, $options: "i" };
-  if (email) filters.email = { $regex: email, $options: "i" };
-  if (phone) filters.phone = { $regex: phone, $options: "i" };
+  const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (name) filters.name = { $regex: escapeRegex(name), $options: "i" };
+  if (email) filters.email = { $regex: escapeRegex(email), $options: "i" };
+  if (phone) filters.phone = { $regex: escapeRegex(phone), $options: "i" };
 
   return await User.find(filters).sort(sort).limit(limit).skip(offset);
 };
@@ -43,14 +46,7 @@ const updateUser = async (id, data, authUser) => {
     };
   }
 
-  const updateFields = {
-    name: data?.name,
-    phone: data?.phone,
-    address: data?.address,
-    isActive: data?.isActive,
-    shopName: data?.shopName,
-    shopCategory: data?.shopCategory,
-  };
+  const updateFields = Object.fromEntries(Object.entries({ name: data?.name, phone: data?.phone, address: data?.address, isActive: data?.isActive, shopName: data?.shopName, shopCategory: data?.shopCategory }).filter(([, value]) => value !== undefined));
 
   // If password is provided, hash it before saving
   if (data?.password) {
@@ -58,9 +54,15 @@ const updateUser = async (id, data, authUser) => {
     updateFields.password = bcrypt.hashSync(data.password, salt);
   }
 
-  return await User.findByIdAndUpdate(id, updateFields, {
-    returnDocument: "after",
-  });
+  const user = await User.findByIdAndUpdate(id, updateFields, { new: true, runValidators: true });
+  if (!user) throw { status: 404, message: "User not found." };
+
+  return {
+    _id: user._id, name: user.name, email: user.email, phone: user.phone,
+    address: user.address, isActive: user.isActive, roles: user.roles,
+    profileImageUrl: user.profileImageUrl, shopName: user.shopName,
+    shopCategory: user.shopCategory,
+  };
 };
 
 const deleteUser = async (id) => {

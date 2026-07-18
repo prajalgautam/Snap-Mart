@@ -6,17 +6,17 @@ const getOrders = async (req, res) => {
 
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
 const getOrderById = async (req, res) => {
   try {
-    const order = await orderService.getOrderById(req.params.id);
+    const order = await orderService.assertAccess(req.params.id, req.user);
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
@@ -26,7 +26,7 @@ const getOrdersByMerchant = async (req, res) => {
 
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
@@ -39,7 +39,7 @@ const getOrdersByUser = async (req, res) => {
 
     res.json(orders);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
@@ -49,7 +49,7 @@ const createOrder = async (req, res) => {
 
     res.json(createdOrder);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
@@ -62,11 +62,12 @@ const updateOrderStatus = async (req, res) => {
     const order = await orderService.updateOrderStatus(
       req.params.id,
       req.body.status,
+      req.user,
     );
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
@@ -76,50 +77,47 @@ const deleteOrder = async (req, res) => {
 
     res.json({ message: "Order deleted." });
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
 const cancelOrder = async (req, res) => {
   try {
-    const order = await orderService.cancelOrder(req.params.id);
+    const order = await orderService.cancelOrder(req.params.id, req.user);
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
 const confirmOrder = async (req, res) => {
   try {
-    const order = await orderService.confirmOrder(
-      req.params.id,
-      req.body?.status,
-    );
+    const order = await orderService.confirmOrder(req.params.id, req.body?.status, req.user);
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
 const orderPaymentViaCash = async (req, res) => {
   try {
-    const order = await orderService.orderPaymentViaCash(req.params.id);
+    const order = await orderService.orderPaymentViaCash(req.params.id, req.user);
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 
 const orderPaymentViaKhalti = async (req, res) => {
   try {
-    const order = await orderService.orderPaymentViaKhalti(req.params.id);
+    const order = await orderService.orderPaymentViaKhalti(req.params.id, req.user);
 
     res.json(order);
   } catch (error) {
-    res.status(400).json(error.message);
+    res.status(error.status || 400).json(error.message);
   }
 };
 

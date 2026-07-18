@@ -1,5 +1,5 @@
-const roleBasedAuth = (role) => (req, res, next) => {
-  if (req.user.roles.includes(role)) return next();
+const roleBasedAuth = (...roles) => (req, res, next) => {
+  if (req.user?.roles?.some((role) => roles.includes(role))) return next();
 
   res.status(403).send("Access denied.");
 };

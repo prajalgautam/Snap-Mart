@@ -34,24 +34,18 @@ const ProfilePage = () => {
     setLoading(true);
 
     const isMerchant = user?.roles?.includes(ROLE_MERCHANT);
-
-    updateUser(user._id, {
+    const update = {
       name: data.name,
-      email: data.email,
       phone: data.phone,
-      password: data.password,
-      address: {
-        city: data.city,
-        province: data.province,
-      },
-      roles: user.roles,
-      ...(isMerchant && {
-        shopName: data.shopName,
-        shopCategory: data.shopCategory,
-      }),
-    })
+      address: { city: data.city, province: data.province },
+      ...(isMerchant && { shopName: data.shopName, shopCategory: data.shopCategory }),
+    };
+
+    if (data.password?.trim()) update.password = data.password;
+
+    updateUser(user._id, update)
       .then((response) => {
-        setUser({ user: response.data });
+        setUser({ user: { ...response.data, token: user.token } });
 
         toast.success("Updated successfully!");
       })

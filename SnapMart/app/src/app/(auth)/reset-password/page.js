@@ -3,7 +3,7 @@
 import { resetPassword } from "@/api/auth";
 import PasswordInput from "@/components/PasswordInput";
 import { useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const ResetPasswordPage = () => {
@@ -11,12 +11,11 @@ const ResetPasswordPage = () => {
     register,
     handleSubmit,
     reset,
-    watch,
+    control,
     formState: { errors },
   } = useForm();
 
-  // eslint-disable-next-line no-unused-vars
-  const password = watch("password");
+  const password = useWatch({ control, name: "password" });
 
   const searchParams = useSearchParams();
 

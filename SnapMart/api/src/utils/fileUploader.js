@@ -10,6 +10,7 @@ async function uploadFile(files) {
           {
             folder: "20260320",
             allowed_formats: ["jpg", "png", "webp"],
+            secure: true,
           },
           (error, data) => {
             if (error) return reject(error);
@@ -20,7 +21,9 @@ async function uploadFile(files) {
         .end(file.buffer);
     });
 
-    uploadedFiles.push(result);
+    // Prefer HTTPS URLs so uploaded assets work with Next/Image and are not
+    // downgraded when the storefront is served over HTTPS.
+    uploadedFiles.push({ ...result, url: result.secure_url || result.url });
   }
 
   return uploadedFiles;

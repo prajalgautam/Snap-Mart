@@ -9,7 +9,7 @@ import { FaImage, FaPencil, FaTrash } from "react-icons/fa6";
 import { PRODUCT_MANAGEMENT_ROUTE } from "@/constants/routes";
 import { format } from "date-fns";
 import { deleteProduct, getProducts } from "@/api/products";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const ProductsTable = () => {
@@ -18,8 +18,7 @@ const ProductsTable = () => {
 
   const user = useAuthStore((state) => state.user);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function fetchProducts() {
+  const fetchProducts = useCallback(() => {
     if (!user?._id) return;
     getProducts({ createdBy: user._id })
       .then((data) => {
@@ -27,14 +26,13 @@ const ProductsTable = () => {
       })
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
-  }
+  }, [user]);
 
   useEffect(() => {
     if (user?._id) {
       fetchProducts();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?._id]);
+  }, [fetchProducts, user?._id]);
 
   if (loading)
     return (
